@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}Create Booking | Booking System{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">Create New Booking</h3>
+                </div>
+                <div class="card-body">
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        
+                        {# Facility Information #}
+                        {% if facility %}
+                        <div class="mb-4">
+                            <h5>Facility Information</h5>
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ facility.name }}</h5>
+                                    <p class="card-text"><strong>Location:</strong> {{ facility.location }}</p>
+                                    <p class="card-text"><strong>Capacity:</strong> {{ facility.capacity }} people</p>
+                                    {% if facility.opening_time and facility.closing_time %}
+                                    <p class="card-text"><strong>Opening Hours:</strong> {{ facility.opening_time }} - {{ facility.closing_time }}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        
+                        {# Use a safer way to render the form #}
+                        {% crispy form %}
+                        
+                        <div class="mt-4 d-flex justify-content-between">
+                            <a href="{% if facility %}{% url 'facilities:facility_detail' facility.id %}{% else %}{% url 'facilities:facility_list' %}{% endif %}" class="btn btn-outline-secondary">
+                                <i class="fas fa-arrow-left me-1"></i> Back
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-calendar-plus me-1"></i> Create Booking
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

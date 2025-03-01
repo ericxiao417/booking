@@ -1,0 +1,21 @@
+{% autoescape off %}
+Dear {{ booking.user.get_full_name }},
+
+Your booking has been confirmed!
+
+Booking Details:
+- Facility: {{ booking.facility.name }}
+- Location: {{ booking.facility.location }}
+- Start Time: {{ booking.start_time|date:'Y-m-d H:i' }}
+- End Time: {{ booking.end_time|date:'Y-m-d H:i' }}
+- Number of People: {{ booking.number_of_people }}
+
+You can view your booking details at:
+{{ protocol }}://{{ domain }}{% url 'bookings:booking_detail' booking.id %}
+
+If you have any questions, please don't hesitate to contact us.
+
+Thank you!
+
+Booking System Team
+{% endautoescape %}

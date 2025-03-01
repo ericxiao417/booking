@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="my-4">
+                <h1 class="display-5 fw-bold">{{ title }}</h1>
+                {% if subtitle %}
+                <p class="lead">{{ subtitle }}</p>
+                {% endif %}
+                {% if breadcrumbs %}
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                        {% for breadcrumb in breadcrumbs %}
+                            {% if forloop.last %}
+                            <li class="breadcrumb-item active" aria-current="page">{{ breadcrumb.title }}</li>
+                            {% else %}
+                            <li class="breadcrumb-item"><a href="{{ breadcrumb.url }}">{{ breadcrumb.title }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                    </ol>
+                </nav>
+                {% endif %}
+                {% if show_divider|default:True %}
+                <hr>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

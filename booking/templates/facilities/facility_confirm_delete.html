@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Delete {{ facility.name }} | Booking System{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'facilities:facility_list' %}">Facilities</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'facilities:facility_detail' facility.pk %}">{{ facility.name }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Delete</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <div class="col-lg-6 mx-auto">
+            <div class="card border-danger shadow">
+                <div class="card-header bg-danger text-white">
+                    <h3 class="mb-0">Confirm Delete</h3>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-warning" role="alert">
+                        <i class="fas fa-exclamation-triangle me-2"></i> Warning: This action cannot be undone!
+                    </div>
+                    
+                    <p class="lead">Are you sure you want to delete the facility "<strong>{{ facility.name }}</strong>"?</p>
+                    
+                    {% if facility.bookings.exists %}
+                    <div class="alert alert-danger" role="alert">
+                        <i class="fas fa-exclamation-circle me-2"></i> This facility has associated bookings. Deleting it will also remove all related bookings.
+                    </div>
+                    {% endif %}
+                    
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                            <a href="{% url 'facilities:facility_detail' facility.pk %}" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left me-1"></i> Cancel
+                            </a>
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-trash-alt me-1"></i> Delete Facility
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
