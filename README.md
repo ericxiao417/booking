@@ -69,7 +69,7 @@ chmod 777 insert_data.sh
 ./insert_data.sh
 ```
 
-4. Access the application at `http://localhost:8000` or http://103.106.189.176/ (Since I have already deployed it on the server at 103.106.189.176 and configured port 80 mapping in Nginx.)
+4. Access the application at `http://localhost:8000`
 
 ## Development Environment
 
